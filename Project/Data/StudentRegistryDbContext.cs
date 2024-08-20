@@ -31,6 +31,5 @@ namespace Project.Data
                 .WithMany(s => s.Marks)
                 .HasForeignKey(m => m.SubjectId);
         }
-
     }
 }

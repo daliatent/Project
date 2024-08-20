@@ -9,6 +9,6 @@ namespace Project.Models
         public string Surname { get; set; }
         public int Age { get; set; }
         public Address Address { get; set; }
-        public ICollection<Mark> Marks { get; set; }
+        public List<Mark> Marks { get; set; } = new List<Mark>();
     }
 }

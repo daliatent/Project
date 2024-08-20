@@ -1,20 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Project.Data;
+﻿using Project.Data;
 using Project.Models;
+using System;
 
-namespace Project.Controllers
+namespace Project.Services
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SeedControler : ControllerBase
+    public class SeedServices
     {
         private readonly StudentRegistryDbContext context;
-        public SeedControler(StudentRegistryDbContext context)
+        public SeedServices(StudentRegistryDbContext context)
         {
             this.context = context;
         }
-        [HttpPost]
+        
         public void Seed()
         {
             if (!context.Students.Any() && !context.Subjects.Any())
@@ -25,10 +22,7 @@ namespace Project.Controllers
 
                 context.Subjects.AddRange(math, english, history);
                 context.SaveChanges();
-
-                var students = new List<Student>
-            {
-                new Student
+                context.Students.Add(new Models.Student
                 {
                     Name = "Popovici",
                     Surname = "Clara",
@@ -40,12 +34,12 @@ namespace Project.Controllers
                         Number = 19
                     },
                     Marks = new List<Mark>
-                    {
+    {
                         new Mark { Value = 9, DateGiven = DateTime.Now, Subject = math },
                         new Mark { Value = 8, DateGiven = DateTime.Now, Subject = english }
                     }
-                },
-                new Student
+                });
+                context.Students.Add(new Models.Student
                 {
                     Name = "Popescu",
                     Surname = "Alin",
@@ -61,8 +55,8 @@ namespace Project.Controllers
                         new Mark { Value = 7, DateGiven = DateTime.Now, Subject = history },
                         new Mark { Value = 6, DateGiven = DateTime.Now, Subject = english }
                     }
-                },
-                new Student
+                });
+                context.Students.Add(new Models.Student
                 {
                     Name = "Ile",
                     Surname = "Lavinia",
@@ -78,8 +72,8 @@ namespace Project.Controllers
                         new Mark { Value = 10, DateGiven = DateTime.Now, Subject = math },
                         new Mark { Value = 9, DateGiven = DateTime.Now, Subject = english }
                     }
-                },
-                new Student
+                });
+                context.Students.Add(new Models.Student
                 {
                     Name = "Secara",
                     Surname = "Carina",
@@ -95,8 +89,8 @@ namespace Project.Controllers
                         new Mark { Value = 6, DateGiven = DateTime.Now, Subject = math },
                         new Mark { Value = 7, DateGiven = DateTime.Now, Subject = history }
                     }
-                },
-                new Student
+                });
+                context.Students.Add(new Models.Student
                 {
                     Name = "Cuc",
                     Surname = "Patricia",
@@ -112,8 +106,8 @@ namespace Project.Controllers
                         new Mark { Value = 8, DateGiven = DateTime.Now, Subject = english },
                         new Mark { Value = 9, DateGiven = DateTime.Now, Subject = history }
                     }
-                },
-                new Student
+                });
+                context.Students.Add(new Models.Student
                 {
                     Name = "Tiutin",
                     Surname = "Natalia",
@@ -129,12 +123,14 @@ namespace Project.Controllers
                         new Mark { Value = 7, DateGiven = DateTime.Now, Subject = math },
                         new Mark { Value = 8, DateGiven = DateTime.Now, Subject = english }
                     }
-                }
-            };
+                });
 
-                context.Students.AddRange(students);
                 context.SaveChanges();
             }
         }
     }
 }
+            
+              
+                 
+                

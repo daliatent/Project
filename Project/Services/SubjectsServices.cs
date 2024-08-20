@@ -30,5 +30,29 @@ namespace Project.Services
                 Name = s.Name
             }).ToList();
         }
+        public Subject GetSubjectById(int id)
+        {
+            return context.Subjects.FirstOrDefault(s => s.Id == id);
+        }
+
+        public void DeleteSubject(int id)
+        {
+            var subject = context.Subjects.FirstOrDefault(s => s.Id == id);
+            if (subject != null)
+            {
+                context.Subjects.Remove(subject);
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateSubject(int id, SubjectToCreateDTo subjectDTO)
+        {
+            var subject = context.Subjects.FirstOrDefault(s => s.Id == id);
+            if (subject != null)
+            {
+                subject.Name = subjectDTO.Name;
+                context.SaveChanges();
+            }
+        }
     }
 }

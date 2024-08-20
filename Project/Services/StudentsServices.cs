@@ -13,6 +13,22 @@ namespace Project.Services
         {
             this.context = context;
         }
+
+        public Student GetStudentByName(string name) =>
+            context.Students.FirstOrDefault(s => s.Name == name);
+
+        public Student AddStudent(string name, string surname, int age)
+        {
+            var student = context.Students.FirstOrDefault(s => s.Name == name);
+            if(student != null)
+            {
+                return student;
+            }
+            student = new Student { Name = name, Surname = surname, Age = age };
+            context.Students.Add(student);
+            return student;
+        }
+        
         public List<StudentToCreateDTO> GetAllStudents()
         {
             var students = context.Students.Include(s => s.Address).ToList();

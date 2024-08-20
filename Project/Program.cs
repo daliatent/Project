@@ -1,14 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using Project.Data;
 using Project.Services;
+using Project.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<AddressesService>();
+builder.Services.AddScoped<SeedServices>();
 builder.Services.AddScoped<StudentsServices>();
 builder.Services.AddScoped<MarksServices>();
 builder.Services.AddScoped<SubjectsServices>();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<CustomException>();
+});
 builder.Services.AddDbContext<StudentRegistryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("StudentsDb")));
 builder.Services.AddControllers();

@@ -36,7 +36,7 @@ namespace Project.Services
                 {
                     Value = m.Value,
                     DateGiven = m.DateGiven,
-                    SubjectName = m.Subject.Name
+                    SubjectName = m.Subject != null ? m.Subject.Name : "Unknown"
                 }).ToList();
         }
 
@@ -48,7 +48,7 @@ namespace Project.Services
                 {
                     Value = m.Value,
                     DateGiven = m.DateGiven,
-                    SubjectName = m.Subject.Name
+                    SubjectName = m.Subject != null ? m.Subject.Name : "Unknown"
                 }).ToList();
         }
 
@@ -57,6 +57,6 @@ namespace Project.Services
             return context.Marks
                 .Where(m => m.StudentId == studentId && m.SubjectId == subjectId)
                 .Average(m => m.Value);
-        }
+        }    
     }
 }

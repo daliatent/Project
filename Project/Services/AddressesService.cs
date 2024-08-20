@@ -1,5 +1,6 @@
 ﻿using Project.Data;
 using Project.DTOs;
+using Project.Exceptions;
 
 namespace Project.Services
 {
@@ -10,6 +11,21 @@ namespace Project.Services
         {
             this.context = context;
         }
+        public void ChangeStudent(int addressId, int studentId)
+        {
+            var studentExists = context.Students.Any(s => s.Id == studentId);
+            if (!studentExists)
+            {
+              throw new StudentIdNotExistException("StudentId does not exist");
+            }
+            var address = context.Addresses.FirstOrDefault(a => a.Id == addressId);
+            if (address != null)
+            {
+                address.StudentId = studentId;
+            }
+            context.SaveChanges();
+        }
+
         public AddressToCreateDTo GetAddressByStudentId(int studentId)
         {
             var address = context.Addresses.FirstOrDefault(a => a.StudentId == studentId);
