@@ -13,15 +13,16 @@ namespace Project.Services
             this.context = context;
         }
 
-        public SubjectToCreateDTo AddSubject(SubjectToCreateDTo subjectDTO)
-        {
-            var subject = new Subject { Name = subjectDTO.Name };
-            context.Subjects.Add(subject);
-            context.SaveChanges();
-            subjectDTO.Id = subject.Id;
-            return subjectDTO;
-        }
-
+         public SubjectToCreateDTo AddSubject(SubjectToCreateDTo subjectDTO)
+         {
+             var subject = new Subject { Name = subjectDTO.Name };
+             context.Subjects.Add(subject);
+             context.SaveChanges();
+             subjectDTO.Id = subject.Id;
+             return subjectDTO;
+         }
+        
+        
         public List<SubjectToCreateDTo> GetAllSubjects()
         {
             return context.Subjects.Select(s => new SubjectToCreateDTo

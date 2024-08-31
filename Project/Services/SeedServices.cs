@@ -6,6 +6,7 @@ namespace Project.Services
 {
     public class SeedServices
     {
+        
         private readonly StudentRegistryDbContext context;
         public SeedServices(StudentRegistryDbContext context)
         {
@@ -124,10 +125,11 @@ namespace Project.Services
                         new Mark { Value = 8, DateGiven = DateTime.Now, Subject = english }
                     }
                 });
-
+                
                 context.SaveChanges();
             }
         }
+       
     }
 }
             
